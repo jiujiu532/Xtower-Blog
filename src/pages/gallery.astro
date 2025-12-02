@@ -3,11 +3,8 @@ import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
 import { url } from "@/utils/url-utils";
 
-// 获取gallery文件夹中的所有图片
-const galleryImages = await Astro.glob('/public/assets/images/gallery/*');
-
-// 手动列出图片（因为glob可能不工作）
-const imageFiles = [
+// 壁纸图片列表
+const wallpaperFiles = [
   "1.jpg", "1.png", "132931108_p0.jpg", "exif-frame-blur-1753347774987.jpg",
   "【哲风壁纸】AI-AI美女-佳人.png", "【哲风壁纸】AI-AI美女.png",
   "【哲风壁纸】eva-EVA明日香.png", "【哲风壁纸】eva-二次元.png",
@@ -44,6 +41,15 @@ const imageFiles = [
   "【哲风壁纸】插画-曲_出水芙蓉.png", "【哲风壁纸】明日香-红色.png",
   "【哲风壁纸】楪祈-白色连衣裙.png", "【哲风壁纸】瞳-红色.png"
 ];
+
+// 头像图片列表
+const avatarFiles = [
+  "136171144_p0.png",
+  "imgi_16_95580281_p0_square1200.jpg",
+  "imgi_64_132508876_p0.png",
+  "imgi_65_135916837_p0.png",
+  "jiu.jpg"
+];
 ---
 
 <MainGridLayout title="图库" description="记录生活中的美好瞬间">
@@ -54,15 +60,29 @@ const imageFiles = [
     </h1>
     <p class="text-neutral-500 mb-6">记录生活中的美好瞬间</p>
 
-    <!-- 壁纸收藏 -->
-    <div class="mb-8">
-      <h2 class="text-xl font-bold mb-4">壁纸收藏</h2>
-      <p class="text-neutral-500 mb-4">收集的精美壁纸图片</p>
-      <p class="text-sm text-neutral-400 mb-4">{imageFiles.length} 张图片 · 2025/12/2</p>
-      
-      <!-- 图片网格 -->
+    <!-- 分类切换按钮 -->
+    <div class="flex gap-3 mb-6">
+      <button 
+        id="btn-wallpaper" 
+        class="tab-btn active px-4 py-2 rounded-lg font-medium transition-all"
+      >
+        <Icon name="fa6-solid:image" class="inline mr-2" />
+        壁纸 ({wallpaperFiles.length})
+      </button>
+      <button 
+        id="btn-avatar" 
+        class="tab-btn px-4 py-2 rounded-lg font-medium transition-all"
+      >
+        <Icon name="fa6-solid:user" class="inline mr-2" />
+        头像 ({avatarFiles.length})
+      </button>
+    </div>
+
+    <!-- 壁纸区域 -->
+    <div id="wallpaper-section" class="gallery-section">
+      <p class="text-sm text-neutral-400 mb-4">{wallpaperFiles.length} 张图片 · 2025/12/2</p>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        {imageFiles.map((img, index) => (
+        {wallpaperFiles.map((img) => (
           <a 
             href={url(`/assets/images/gallery/${encodeURIComponent(img)}`)}
             target="_blank"
@@ -81,6 +101,30 @@ const imageFiles = [
         ))}
       </div>
     </div>
+
+    <!-- 头像区域 -->
+    <div id="avatar-section" class="gallery-section hidden">
+      <p class="text-sm text-neutral-400 mb-4">{avatarFiles.length} 张图片 · 2025/12/2</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {avatarFiles.map((img) => (
+          <a 
+            href={url(`/images/avatars/${encodeURIComponent(img)}`)}
+            target="_blank"
+            class="group aspect-square bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden relative cursor-pointer"
+          >
+            <img 
+              src={url(`/images/avatars/${encodeURIComponent(img)}`)}
+              alt=""
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+              <Icon name="fa6-solid:expand" class="text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
   </div>
 </MainGridLayout>
 
@@ -88,4 +132,45 @@ const imageFiles = [
   .aspect-video {
     aspect-ratio: 16 / 9;
   }
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  .tab-btn {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid transparent;
+  }
+  .tab-btn:hover {
+    background: var(--btn-hover-bg);
+  }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+  }
+  .gallery-section.hidden {
+    display: none;
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btnWallpaper = document.getElementById('btn-wallpaper');
+    const btnAvatar = document.getElementById('btn-avatar');
+    const wallpaperSection = document.getElementById('wallpaper-section');
+    const avatarSection = document.getElementById('avatar-section');
+
+    btnWallpaper?.addEventListener('click', () => {
+      btnWallpaper.classList.add('active');
+      btnAvatar?.classList.remove('active');
+      wallpaperSection?.classList.remove('hidden');
+      avatarSection?.classList.add('hidden');
+    });
+
+    btnAvatar?.addEventListener('click', () => {
+      btnAvatar.classList.add('active');
+      btnWallpaper?.classList.remove('active');
+      avatarSection?.classList.remove('hidden');
+      wallpaperSection?.classList.add('hidden');
+    });
+  });
+</script>
