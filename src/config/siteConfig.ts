@@ -80,8 +80,8 @@ export const siteConfig: SiteConfig = {
       position: "10% 20%",
       homeText: {
         enable: true,
-        title: "Evernight",
-        subtitle: ["「再见，然后永别劣等感」"],
+        title: "JIUBLOG",
+        subtitle: ["能够尽情享受喜欢的东西，才是最幸福的人生！"],
         typewriter: {
           enable: true,
           speed: 100,

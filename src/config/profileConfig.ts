@@ -3,7 +3,7 @@ import type { ProfileConfig } from "../types/config";
 export const profileConfig: ProfileConfig = {
   avatar: "/assets/images/avatar.jpg",
   name: "久菜不闲",
-  bio: "你好，我是久菜不闲。",
+  bio: "能够尽情享受喜欢的东西，才是最幸福的人生！",
   links: [
     {
       name: "Bilibli",

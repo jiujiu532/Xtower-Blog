@@ -38,7 +38,8 @@ import ImageWrapper from "@/components/misc/ImageWrapper.astro";
     >
     </div>
     <div class="text-center text-neutral-400 mb-2.5 transition">
-      {profileConfig.bio}
+      <span id="profile-bio-typewriter"></span>
+      <span class="typewriter-cursor">|</span>
     </div>
     <div class="flex gap-2 justify-center mb-1">
       {
@@ -72,3 +73,35 @@ import ImageWrapper from "@/components/misc/ImageWrapper.astro";
     </div>
   </div>
 </div>
+
+<style>
+  .typewriter-cursor {
+    animation: blink 1s infinite;
+  }
+  
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+</style>
+
+<script>
+  const bioText = "能够尽情享受喜欢的东西，才是最幸福的人生！";
+  const typewriterElement = document.getElementById("profile-bio-typewriter");
+  
+  if (typewriterElement) {
+    let index = 0;
+    const speed = 100; // 打字速度（毫秒）
+    
+    function typeWriter() {
+      if (index < bioText.length) {
+        typewriterElement.textContent += bioText.charAt(index);
+        index++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    
+    // 延迟500ms后开始打字
+    setTimeout(typeWriter, 500);
+  }
+</script>
