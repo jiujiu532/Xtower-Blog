@@ -73,7 +73,7 @@ export const siteConfig: SiteConfig = {
     mode: "banner", // banner / overlay / none
     switchable: true, // 是否允许导航栏切换壁纸模式
     src: {
-      desktop: "/assets/images/d1.webp",
+      desktop: "/assets/images/desktop-bg.png",
       mobile: "/assets/images/m1.webp",
     },
     banner: {
