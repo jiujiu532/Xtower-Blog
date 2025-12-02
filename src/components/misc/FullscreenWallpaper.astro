@@ -1,4 +1,6 @@
 ---
+import { url } from "@/utils/url-utils";
+
 interface Props {
 	config: {
 		src: {
@@ -15,9 +17,11 @@ interface Props {
 
 const { config, className } = Astro.props;
 
-// 获取图片源
-const desktopSrc = config.src.desktop || config.src.mobile || '';
-const mobileSrc = config.src.mobile || config.src.desktop || '';
+// 获取图片源（使用url函数处理base URL）
+const rawDesktopSrc = config.src.desktop || config.src.mobile || '';
+const rawMobileSrc = config.src.mobile || config.src.desktop || '';
+const desktopSrc = rawDesktopSrc ? url(rawDesktopSrc) : '';
+const mobileSrc = rawMobileSrc ? url(rawMobileSrc) : '';
 
 // 如果没有任何图片源，不渲染
 if (!desktopSrc && !mobileSrc) {
