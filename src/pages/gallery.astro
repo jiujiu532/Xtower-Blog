@@ -3,6 +3,28 @@ import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
 import { url } from "@/utils/url-utils";
 
+// 定义相册数据
+const albums = [
+  {
+    id: "wallpapers",
+    title: "精屏8K壁纸",
+    description: "网速较慢可能导致无法加载图片或加载缓慢，请耐心等待。",
+    cover: url("/assets/images/gallery/【哲风壁纸】二次元背景-初音未来.png"),
+    count: 72,
+    date: "2025/12/2",
+    tags: ["8K壁纸", "ACGN", "精屏壁纸"]
+  },
+  {
+    id: "avatars",
+    title: "Avatar",
+    description: "一些头像图片。",
+    cover: url("/images/avatars/136171144_p0.png"),
+    count: 5,
+    date: "2025/12/2",
+    tags: ["头像", "Avatar"]
+  }
+];
+
 // 壁纸图片列表
 const wallpaperFiles = [
   "1.jpg", "1.png", "132931108_p0.jpg", "exif-frame-blur-1753347774987.jpg",
@@ -60,26 +82,52 @@ const avatarFiles = [
     </h1>
     <p class="text-neutral-500 mb-6">记录生活中的美好瞬间</p>
 
-    <!-- 分类切换按钮 -->
-    <div class="flex gap-3 mb-6">
-      <button 
-        id="btn-wallpaper" 
-        class="tab-btn active px-4 py-2 rounded-lg font-medium transition-all"
-      >
-        <Icon name="fa6-solid:image" class="inline mr-2" />
-        壁纸 ({wallpaperFiles.length})
-      </button>
-      <button 
-        id="btn-avatar" 
-        class="tab-btn px-4 py-2 rounded-lg font-medium transition-all"
-      >
-        <Icon name="fa6-solid:user" class="inline mr-2" />
-        头像 ({avatarFiles.length})
-      </button>
+    <!-- 相册列表视图 -->
+    <div id="album-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {albums.map((album) => (
+        <div 
+          class="album-card card-base overflow-hidden cursor-pointer transition-all hover:shadow-lg"
+          data-album-id={album.id}
+        >
+          <div class="aspect-video overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+            <img 
+              src={album.cover}
+              alt={album.title}
+              class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+            />
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-bold mb-2">{album.title}</h3>
+            <p class="text-sm text-neutral-500 mb-3 line-clamp-2">{album.description}</p>
+            <div class="flex items-center gap-4 text-sm text-neutral-400 mb-3">
+              <span class="flex items-center gap-1">
+                <Icon name="fa6-solid:image" class="text-xs" />
+                {album.count} 张图片
+              </span>
+              <span class="flex items-center gap-1">
+                <Icon name="fa6-solid:calendar" class="text-xs" />
+                {album.date}
+              </span>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              {album.tags.map((tag) => (
+                <span class="px-2 py-1 text-xs rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
 
-    <!-- 壁纸区域 -->
-    <div id="wallpaper-section" class="gallery-section">
+    <!-- 壁纸相册详情 -->
+    <div id="wallpapers-detail" class="album-detail hidden">
+      <button class="back-btn flex items-center gap-2 mb-4 text-neutral-600 dark:text-neutral-400 hover:text-[var(--primary)] transition-colors">
+        <Icon name="fa6-solid:arrow-left" />
+        返回相册列表
+      </button>
+      <h2 class="text-xl font-bold mb-2">精屏8K壁纸</h2>
       <p class="text-sm text-neutral-400 mb-4">{wallpaperFiles.length} 张图片 · 2025/12/2</p>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {wallpaperFiles.map((img) => (
@@ -102,8 +150,13 @@ const avatarFiles = [
       </div>
     </div>
 
-    <!-- 头像区域 -->
-    <div id="avatar-section" class="gallery-section hidden">
+    <!-- 头像相册详情 -->
+    <div id="avatars-detail" class="album-detail hidden">
+      <button class="back-btn flex items-center gap-2 mb-4 text-neutral-600 dark:text-neutral-400 hover:text-[var(--primary)] transition-colors">
+        <Icon name="fa6-solid:arrow-left" />
+        返回相册列表
+      </button>
+      <h2 class="text-xl font-bold mb-2">Avatar</h2>
       <p class="text-sm text-neutral-400 mb-4">{avatarFiles.length} 张图片 · 2025/12/2</p>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {avatarFiles.map((img) => (
@@ -135,42 +188,45 @@ const avatarFiles = [
   .aspect-square {
     aspect-ratio: 1 / 1;
   }
-  .tab-btn {
-    background: var(--card-bg);
-    color: var(--text-color);
-    border: 1px solid transparent;
-  }
-  .tab-btn:hover {
-    background: var(--btn-hover-bg);
-  }
-  .tab-btn.active {
-    background: var(--primary);
-    color: white;
-  }
-  .gallery-section.hidden {
+  .album-detail.hidden {
     display: none;
+  }
+  .album-card {
+    transition: transform 0.2s;
+  }
+  .album-card:hover {
+    transform: translateY(-4px);
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const btnWallpaper = document.getElementById('btn-wallpaper');
-    const btnAvatar = document.getElementById('btn-avatar');
-    const wallpaperSection = document.getElementById('wallpaper-section');
-    const avatarSection = document.getElementById('avatar-section');
+    const albumList = document.getElementById('album-list');
+    const albumCards = document.querySelectorAll('.album-card');
+    const backBtns = document.querySelectorAll('.back-btn');
 
-    btnWallpaper?.addEventListener('click', () => {
-      btnWallpaper.classList.add('active');
-      btnAvatar?.classList.remove('active');
-      wallpaperSection?.classList.remove('hidden');
-      avatarSection?.classList.add('hidden');
+    // 点击相册卡片
+    albumCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const albumId = card.getAttribute('data-album-id');
+        const detailSection = document.getElementById(`${albumId}-detail`);
+        
+        if (detailSection) {
+          albumList?.classList.add('hidden');
+          detailSection.classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
     });
 
-    btnAvatar?.addEventListener('click', () => {
-      btnAvatar.classList.add('active');
-      btnWallpaper?.classList.remove('active');
-      avatarSection?.classList.remove('hidden');
-      wallpaperSection?.classList.add('hidden');
+    // 点击返回按钮
+    backBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const detailSections = document.querySelectorAll('.album-detail');
+        detailSections.forEach(section => section.classList.add('hidden'));
+        albumList?.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
   });
 </script>
