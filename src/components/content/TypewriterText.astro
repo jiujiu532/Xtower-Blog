@@ -43,7 +43,14 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
       // 尝试解析为JSON数组，如果失败则作为单个字符串处理
       try {
         const parsed = JSON.parse(textData);
-        this.texts = Array.isArray(parsed) ? parsed : [textData];
+        // 如果是数组且只有一个元素，当作单条文本处理
+        if (Array.isArray(parsed) && parsed.length === 1) {
+          this.texts = parsed;
+        } else if (Array.isArray(parsed)) {
+          this.texts = parsed;
+        } else {
+          this.texts = [textData];
+        }
       } catch {
         this.texts = [textData];
       }

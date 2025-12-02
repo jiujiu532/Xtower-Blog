@@ -380,8 +380,10 @@ function showBannerMode() {
 		// 检查是否启用 homeText
 		const homeTextEnabled = siteConfig.backgroundWallpaper.banner?.homeText?.enable;
 		
-		// 检查当前是否为首页
-		const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
+		// 检查当前是否为首页（考虑 base URL）
+		const baseUrl = import.meta.env.BASE_URL || '/';
+		const pathname = window.location.pathname;
+		const isHomePage = pathname === baseUrl || pathname === baseUrl.slice(0, -1) || pathname === '/' || pathname === '';
 		
 		// 只有在启用且在首页时才显示
 		if (homeTextEnabled && isHomePage) {
@@ -397,7 +399,9 @@ function showBannerMode() {
 	// 处理移动端非首页主内容区域位置
 	const mainContentWrapper = document.querySelector('.absolute.w-full.z-30');
 	if (mainContentWrapper) {
-		const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
+		const baseUrl2 = import.meta.env.BASE_URL || '/';
+		const pathname2 = window.location.pathname;
+		const isHomePage = pathname2 === baseUrl2 || pathname2 === baseUrl2.slice(0, -1) || pathname2 === '/' || pathname2 === '';
 		const isMobile = window.innerWidth < 1024;
 		// 只在移动端非首页时调整主内容位置
 		if (isMobile && !isHomePage) {
