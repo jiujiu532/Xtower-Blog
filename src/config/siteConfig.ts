@@ -6,11 +6,11 @@ import { fontConfig } from "./fontConfig";
 const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
-  title: "Evernight",
-  subtitle: "Demiurge",
-  site_url: "https://blog.xtower.site",
-  description: "Evernight 个人博客站点，使用 Astro 构建。",
-  keywords: ["弦塔", "Evernight", "Astro", "ACGN", "博客", "静态博客"],
+  title: "Jiublog",
+  subtitle: "久菜不闲的博客",
+  site_url: "https://jiujiu532.github.io/Xtower-Blog",
+  description: "Jiublog 个人博客站点，使用 Astro 构建。",
+  keywords: ["久菜不闲", "Jiublog", "Astro", "博客", "静态博客"],
 
   lang: SITE_LANG,
 
@@ -35,14 +35,14 @@ export const siteConfig: SiteConfig = {
     alt: "🍀",
   },
   // 导航栏标题，不设则回落到 title
-  navbarTitle: "Evernight",
+  navbarTitle: "Jiublog",
 
   // 站点开始日期，用于统计运行天数
-  siteStartDate: "2025-11-21",
+  siteStartDate: "2025-12-02",
 
   // 追番配置
   bangumi: {
-    userId: "1163581",
+    userId: "1104171",
   },
 
   // 文章页底部的“上次编辑时间”卡片开关
