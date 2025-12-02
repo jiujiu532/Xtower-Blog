@@ -1,77 +1,91 @@
 ---
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
+import { url } from "@/utils/url-utils";
+
+// 获取gallery文件夹中的所有图片
+const galleryImages = await Astro.glob('/public/assets/images/gallery/*');
+
+// 手动列出图片（因为glob可能不工作）
+const imageFiles = [
+  "1.jpg", "1.png", "132931108_p0.jpg", "exif-frame-blur-1753347774987.jpg",
+  "【哲风壁纸】AI-AI美女-佳人.png", "【哲风壁纸】AI-AI美女.png",
+  "【哲风壁纸】eva-EVA明日香.png", "【哲风壁纸】eva-二次元.png",
+  "【哲风壁纸】eva-动漫 (1).png", "【哲风壁纸】eva-动漫元素.png",
+  "【哲风壁纸】eva-动漫角色.png", "【哲风壁纸】eva-动漫角色1.png",
+  "【哲风壁纸】eva-日系动漫.png", "【哲风壁纸】EVA动漫-动漫角色.png",
+  "【哲风壁纸】Fate系列-二次元.png", "【哲风壁纸】Re零角色-二次元美少女.png",
+  "【哲风壁纸】Wallpaper-动漫人物.png", "【哲风壁纸】WLOP-宇宙.png",
+  "【哲风壁纸】一个人-海.png", "【哲风壁纸】三人组-二次元.png",
+  "【哲风壁纸】三月七-二次元.png", "【哲风壁纸】两种色调的头发-动漫女孩.png",
+  "【哲风壁纸】个性插画-渔网袜少女.png", "【哲风壁纸】乡村小道-乡村暮色.png",
+  "【哲风壁纸】二次元-二次元角色.png", "【哲风壁纸】二次元-人物集合.png",
+  "【哲风壁纸】二次元-兽耳娘-动漫.png", "【哲风壁纸】二次元-动漫-夜景.png",
+  "【哲风壁纸】二次元-动漫.png", "【哲风壁纸】二次元-动漫眼睛.png",
+  "【哲风壁纸】二次元-动漫角色.png", "【哲风壁纸】二次元-卧室.png",
+  "【哲风壁纸】二次元-古风建筑.png", "【哲风壁纸】二次元-少女.png",
+  "【哲风壁纸】二次元少女-夜间泳池.png", "【哲风壁纸】二次元背景-初音未来.png",
+  "【哲风壁纸】二次元角色-动漫少女.png", "【哲风壁纸】人物-剪影-动漫.png",
+  "【哲风壁纸】人物-场景.png", "【哲风壁纸】光影-动漫-少女.png",
+  "【哲风壁纸】全员-后藤一里.png", "【哲风壁纸】列车过站-动漫人物.png",
+  "【哲风壁纸】初音-水中.png", "【哲风壁纸】初音未来-动漫角色.png",
+  "【哲风壁纸】初音未来-虚拟歌姬.png", "【哲风壁纸】剪影-动漫-月光.png",
+  "【哲风壁纸】动漫-动漫少女.png", "【哲风壁纸】动漫-精选.png",
+  "【哲风壁纸】动漫-落叶.png", "【哲风壁纸】动漫人物-动漫壁纸.png",
+  "【哲风壁纸】动漫场景-动漫壁纸.png", "【哲风壁纸】动漫场景-好好吃的饭.png",
+  "【哲风壁纸】动漫少女-樱花庄.png", "【哲风壁纸】动漫美女-夏日-少女.png",
+  "【哲风壁纸】动漫角色-卡提希娅.png", "【哲风壁纸】动漫角色-名侦探柯南.png",
+  "【哲风壁纸】动漫角色-楪祈.png", "【哲风壁纸】卡提希娅-卡提希娅角色.png",
+  "【哲风壁纸】双马尾-朝日六花.png", "【哲风壁纸】哥特建筑-守岸人.png",
+  "【哲风壁纸】唯美-少女.png", "【哲风壁纸】夕阳-夕阳少女-少女.png",
+  "【哲风壁纸】奇幻场景-少女.png", "【哲风壁纸】孤独摇滚-波奇酱.png",
+  "【哲风壁纸】少女-校园背景.png", "【哲风壁纸】恋柱-鬼灭之刃.png",
+  "【哲风壁纸】拼接背景-电锯人.png", "【哲风壁纸】插画-暗黑风格.png",
+  "【哲风壁纸】插画-曲_出水芙蓉.png", "【哲风壁纸】明日香-红色.png",
+  "【哲风壁纸】楪祈-白色连衣裙.png", "【哲风壁纸】瞳-红色.png"
+];
 ---
 
-<MainGridLayout title="相册" description="记录生活中的美好瞬间">
+<MainGridLayout title="图库" description="记录生活中的美好瞬间">
   <div class="card-base p-6">
     <h1 class="text-2xl font-bold mb-2 flex items-center gap-2">
       <span class="w-1 h-6 bg-[var(--primary)] rounded-full"></span>
-      相册
+      图库
     </h1>
     <p class="text-neutral-500 mb-6">记录生活中的美好瞬间</p>
 
-    <!-- 相册列表 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- 示例相册卡片 -->
-      <div class="group cursor-pointer">
-        <div class="aspect-video bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden mb-3 relative">
-          <div class="absolute inset-0 flex items-center justify-center text-neutral-400">
-            <Icon name="fa6-solid:images" class="text-4xl" />
-          </div>
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <Icon name="fa6-solid:eye" class="text-white text-2xl" />
-          </div>
-        </div>
-        <h3 class="font-bold mb-1">壁纸收藏</h3>
-        <p class="text-sm text-neutral-500 mb-2 line-clamp-2">收集的精美壁纸图片...</p>
-        <div class="flex items-center gap-4 text-sm text-neutral-400">
-          <span class="flex items-center gap-1">
-            <Icon name="fa6-solid:image" />
-            0 张
-          </span>
-          <span class="flex items-center gap-1">
-            <Icon name="fa6-solid:calendar" />
-            2025/12/2
-          </span>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-2">
-          <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-800 rounded">壁纸</span>
-        </div>
+    <!-- 壁纸收藏 -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold mb-4">壁纸收藏</h2>
+      <p class="text-neutral-500 mb-4">收集的精美壁纸图片</p>
+      <p class="text-sm text-neutral-400 mb-4">{imageFiles.length} 张图片 · 2025/12/2</p>
+      
+      <!-- 图片网格 -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {imageFiles.map((img, index) => (
+          <a 
+            href={url(`/assets/images/gallery/${encodeURIComponent(img)}`)}
+            target="_blank"
+            class="group aspect-video bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden relative cursor-pointer"
+          >
+            <img 
+              src={url(`/assets/images/gallery/${encodeURIComponent(img)}`)}
+              alt=""
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+              <Icon name="fa6-solid:expand" class="text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+          </a>
+        ))}
       </div>
-
-      <!-- 示例相册卡片 2 -->
-      <div class="group cursor-pointer">
-        <div class="aspect-video bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden mb-3 relative">
-          <div class="absolute inset-0 flex items-center justify-center text-neutral-400">
-            <Icon name="fa6-solid:images" class="text-4xl" />
-          </div>
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <Icon name="fa6-solid:eye" class="text-white text-2xl" />
-          </div>
-        </div>
-        <h3 class="font-bold mb-1">头像收藏</h3>
-        <p class="text-sm text-neutral-500 mb-2 line-clamp-2">一些头像图片...</p>
-        <div class="flex items-center gap-4 text-sm text-neutral-400">
-          <span class="flex items-center gap-1">
-            <Icon name="fa6-solid:image" />
-            0 张
-          </span>
-          <span class="flex items-center gap-1">
-            <Icon name="fa6-solid:calendar" />
-            2025/12/2
-          </span>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-2">
-          <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-800 rounded">头像</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 空状态提示 -->
-    <div class="text-center py-12 text-neutral-400 hidden">
-      <Icon name="fa6-solid:images" class="text-4xl mb-4" />
-      <p>暂无相册，敬请期待...</p>
     </div>
   </div>
 </MainGridLayout>
+
+<style>
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+</style>
