@@ -318,9 +318,12 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
             "[data-fullscreen-wallpaper]"
           );
 
-          // 检查当前是否为首页
-          const isHomePage =
-            window.location.pathname === "/" || window.location.pathname === "";
+          // 检查当前是否为首页（支持子路径部署）
+          const pathname = window.location.pathname;
+          const isHomePage = pathname === "/" || 
+            pathname === "/Xtower-Blog/" || 
+            pathname === "/Xtower-Blog" ||
+            pathname === "";
 
           if (wallpaperMode === WALLPAPER_OVERLAY) {
             // 全屏壁纸模式：显示全屏壁纸，隐藏banner
@@ -396,9 +399,11 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
             ".banner-text-overlay"
           );
           if (bannerTextOverlay) {
-            const isHomePage =
-              window.location.pathname === "/" ||
-              window.location.pathname === "";
+            const pathname2 = window.location.pathname;
+            const isHomePage = pathname2 === "/" || 
+              pathname2 === "/Xtower-Blog/" || 
+              pathname2 === "/Xtower-Blog" ||
+              pathname2 === "";
             if (wallpaperMode === WALLPAPER_BANNER && isHomePage) {
               bannerTextOverlay.classList.remove("hidden");
             } else {
