@@ -81,7 +81,7 @@ export const siteConfig: SiteConfig = {
       homeText: {
         enable: true,
         title: "JIUBLOG",
-        subtitle: ["能够尽情享受喜欢的东西，才是最幸福的人生！"],
+        subtitle: "能够尽情享受喜欢的东西，才是最幸福的人生！",
         typewriter: {
           enable: true,
           speed: 100,
