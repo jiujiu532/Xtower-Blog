@@ -7,7 +7,7 @@ import { url } from "@/utils/url-utils";
 const albums = [
   {
     id: "wallpapers",
-    title: "精屏8K壁纸",
+    title: "壁纸",
     description: "网速较慢可能导致无法加载图片或加载缓慢，请耐心等待。",
     cover: url("/assets/images/gallery/【哲风壁纸】二次元背景-初音未来.png"),
     count: 72,
@@ -16,7 +16,7 @@ const albums = [
   },
   {
     id: "avatars",
-    title: "Avatar",
+    title: "头像",
     description: "一些头像图片。",
     cover: url("/images/avatars/136171144_p0.png"),
     count: 5,
@@ -127,7 +127,7 @@ const avatarFiles = [
         <Icon name="fa6-solid:arrow-left" />
         返回相册列表
       </button>
-      <h2 class="text-xl font-bold mb-2">精屏8K壁纸</h2>
+      <h2 class="text-xl font-bold mb-2">壁纸</h2>
       <p class="text-sm text-neutral-400 mb-4">{wallpaperFiles.length} 张图片 · 2025/12/2</p>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {wallpaperFiles.map((img) => (
@@ -156,7 +156,7 @@ const avatarFiles = [
         <Icon name="fa6-solid:arrow-left" />
         返回相册列表
       </button>
-      <h2 class="text-xl font-bold mb-2">Avatar</h2>
+      <h2 class="text-xl font-bold mb-2">头像</h2>
       <p class="text-sm text-neutral-400 mb-4">{avatarFiles.length} 张图片 · 2025/12/2</p>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {avatarFiles.map((img) => (
@@ -199,20 +199,24 @@ const avatarFiles = [
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
+<script is:inline>
+  function initGallery() {
     const albumList = document.getElementById('album-list');
     const albumCards = document.querySelectorAll('.album-card');
     const backBtns = document.querySelectorAll('.back-btn');
 
     // 点击相册卡片
     albumCards.forEach(card => {
-      card.addEventListener('click', () => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
         const albumId = card.getAttribute('data-album-id');
         const detailSection = document.getElementById(`${albumId}-detail`);
         
-        if (detailSection) {
-          albumList?.classList.add('hidden');
+        console.log('Clicked album:', albumId);
+        console.log('Detail section:', detailSection);
+        
+        if (detailSection && albumList) {
+          albumList.classList.add('hidden');
           detailSection.classList.remove('hidden');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -221,12 +225,21 @@ const avatarFiles = [
 
     // 点击返回按钮
     backBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
         const detailSections = document.querySelectorAll('.album-detail');
         detailSections.forEach(section => section.classList.add('hidden'));
-        albumList?.classList.remove('hidden');
+        if (albumList) {
+          albumList.classList.remove('hidden');
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGallery);
+  } else {
+    initGallery();
+  }
 </script>
