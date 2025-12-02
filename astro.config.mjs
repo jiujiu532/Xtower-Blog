@@ -27,11 +27,13 @@ import { remarkMermaid } from "./src/plugins/remark-mermaid.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import mdx from "@astrojs/mdx";
 import searchIndexer from "./src/integrations/searchIndex.mts";
+
 // https://astro.build/config
 export default defineConfig({
-	site: siteConfig.site_url,
-
-	base: "/",
+	// GitHub Pages 配置
+	site: 'https://jiujiu532.github.io',
+	base: '/Xtower-Blog',
+	
 	trailingSlash: "always",
 	integrations: [
 		tailwind({
@@ -39,9 +41,7 @@ export default defineConfig({
 		}),
 		swup({
 			theme: false,
-			animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
-			// the default value `transition-` cause transition delay
-			// when the Tailwind class `transition-all` is used
+			animationClass: "transition-swup-",
 			containers: ["main"],
 			smoothScrolling: false,
 			cache: true,
@@ -50,11 +50,9 @@ export default defineConfig({
 			updateHead: true,
 			updateBodyClass: false,
 			globalInstance: true,
-			// 滚动相关配置优化
 			resolveUrl: (url) => url,
 			animateHistoryBrowsing: false,
 			skipPopStateHandling: (event) => {
-				// 跳过锚点链接的处理，让浏览器原生处理
 				return event.state && event.state.url && event.state.url.includes("#");
 			},
 		}),
@@ -74,7 +72,6 @@ export default defineConfig({
 			plugins: [
 				pluginCollapsibleSections(),
 				pluginLineNumbers(),
-				// pluginLanguageBadge(),
 				pluginCustomCopyButton(),
 			],
 			defaultProps: {
@@ -106,11 +103,9 @@ export default defineConfig({
 		svelte(),
 		sitemap({
 			filter: (page) => {
-				// 根据页面开关配置过滤sitemap
 				const url = new URL(page);
 				const pathname = url.pathname;
 
-				// 检查各个页面是否启用
 				if (pathname === '/anime/' && !siteConfig.pages.anime) {
 					return false;
 				}
@@ -127,8 +122,8 @@ export default defineConfig({
 				return true;
 			},
 		}),
-    searchIndexer(),
-    mdx()
+		searchIndexer(),
+		mdx()
 	],
 	markdown: {
 		remarkPlugins: [
@@ -170,33 +165,11 @@ export default defineConfig({
 						tagName: "span",
 						properties: {
 							className: ["anchor-icon"],
-							"data-pagefind-ignore": true,
 						},
-						children: [
-							{
-								type: "text",
-								value: "#",
-							},
-						],
+						children: [{ type: "text", value: "#" }],
 					},
 				},
 			],
 		],
-	},
-	vite: {
-		build: {
-			rollupOptions: {
-				onwarn(warning, warn) {
-					// temporarily suppress this warning
-					if (
-						warning.message.includes("is dynamically imported by") &&
-						warning.message.includes("but also statically imported by")
-					) {
-						return;
-					}
-					warn(warning);
-				},
-			},
-		},
 	},
 });
