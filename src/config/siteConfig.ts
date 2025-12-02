@@ -77,7 +77,7 @@ export const siteConfig: SiteConfig = {
       mobile: "/assets/images/m1.webp",
     },
     banner: {
-      position: "10% 20%",
+      position: "center 30%",
       homeText: {
         enable: true,
         title: "JIUBLOG",
