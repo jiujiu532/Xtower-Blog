@@ -37,8 +37,8 @@ import ImageWrapper from "@/components/misc/ImageWrapper.astro";
       class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"
     >
     </div>
-    <div class="text-center text-neutral-400 mb-2.5 transition">
-      {profileConfig.bio}
+    <div class="text-center text-neutral-400 mb-2.5 transition profile-bio-container">
+      <span class="profile-bio-text" data-bio={profileConfig.bio}></span><span class="profile-bio-cursor">|</span>
     </div>
     <div class="flex gap-2 justify-center mb-1">
       {
@@ -74,3 +74,58 @@ import ImageWrapper from "@/components/misc/ImageWrapper.astro";
 </div>
 
 
+
+<style>
+  .profile-bio-cursor {
+    animation: profile-blink 1s infinite;
+    margin-left: 1px;
+  }
+  
+  @keyframes profile-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+</style>
+
+<script>
+  // 使用全局标记防止重复执行
+  function runProfileTypewriter() {
+    const bioElement = document.querySelector('.profile-bio-text');
+    if (!bioElement) return;
+    
+    const bioText = bioElement.getAttribute('data-bio') || '';
+    
+    // 检查是否已经打完（通过检查当前文本长度）
+    if (bioElement.textContent === bioText) {
+      return; // 已经打完，不再执行
+    }
+    
+    // 检查是否正在打字（通过检查是否有部分文本）
+    if (bioElement.textContent && bioElement.textContent.length > 0 && bioElement.textContent.length < bioText.length) {
+      return; // 正在打字中，不重复执行
+    }
+    
+    // 清空并开始打字
+    bioElement.textContent = '';
+    let index = 0;
+    const speed = 150; // 打字速度（毫秒），比之前慢一点
+    
+    function type() {
+      if (index < bioText.length) {
+        bioElement.textContent = bioText.substring(0, index + 1);
+        index++;
+        setTimeout(type, speed);
+      }
+    }
+    
+    // 延迟300ms后开始打字
+    setTimeout(type, 300);
+  }
+  
+  // 页面加载完成后执行
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runProfileTypewriter);
+  } else {
+    runProfileTypewriter();
+  }
+</script>

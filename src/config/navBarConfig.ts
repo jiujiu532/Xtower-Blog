@@ -4,55 +4,79 @@ import {siteConfig} from "./siteConfig";
 // 根据页面开关动态生成导航栏配置
 const getDynamicNavBarConfig = (): NavBarConfig => {
   const links: (NavBarLink | LinkPreset)[] = [
+    // 主页
     LinkPreset.Home,
+    // 归档
     LinkPreset.Archive,
+    // 我的
+    {
+      name: "我的",
+      url: "/about/",
+      icon: "fa6-solid:user",
+    },
+    // 链接
+    {
+      name: "链接",
+      url: "/links/",
+      icon: "material-symbols:link",
+      children: [
+        {
+          name: "源项目 GitHub",
+          url: "https://github.com/CuteLeaf/Firefly",
+          external: true,
+          icon: "fa6-brands:github",
+        },
+        {
+          name: "GitHub",
+          url: "https://github.com/jiujiu532",
+          external: true,
+          icon: "fa6-brands:github",
+        },
+        {
+          name: "Bilibili",
+          url: "https://space.bilibili.com/1131220360?spm_id_from=333.1387.0.0",
+          external: true,
+          icon: "fa6-brands:bilibili",
+        },
+      ],
+    },
+    // 留言
+    LinkPreset.Guestbook,
+    // 关于（下拉菜单）
+    {
+      name: "关于",
+      url: "/about/",
+      icon: "material-symbols:info",
+      children: [
+        {
+          name: "项目",
+          url: "/projects/",
+          icon: "fa6-solid:folder-open",
+        },
+        {
+          name: "时间线",
+          url: "/timeline/",
+          icon: "fa6-solid:timeline",
+        },
+        {
+          name: "技能",
+          url: "/skills/",
+          icon: "fa6-solid:code",
+        },
+        {
+          name: "番剧",
+          url: "/bangumi/",
+          icon: "fa6-solid:tv",
+        },
+        {
+          name: "图片",
+          url: "/gallery/",
+          icon: "fa6-solid:images",
+        },
+      ],
+    },
   ];
-
-  // 支持自定义导航栏链接,并且支持多级菜单
-  links.push({
-    name: "链接",
-    url: "/links/",
-    icon: "material-symbols:link",
-    children: [
-      {
-        name: "源项目 GitHub",
-        url: "https://github.com/CuteLeaf/Firefly",
-        external: true,
-        icon: "fa6-brands:github",
-      },
-      {
-        name: "GitHub",
-        url: "https://github.com/jiujiu532",
-        external: true,
-        icon: "fa6-brands:github",
-      },
-      {
-        name: "Bilibili",
-        url: "https://space.bilibili.com/1131220360?spm_id_from=333.1387.0.0",
-        external: true,
-        icon: "fa6-brands:bilibili",
-      },
-    ],
-  });
-
-  links.push(LinkPreset.Friends);
-
-  // 根据配置决定是否添加留言板页面
-  if (siteConfig.pages.guestbook) {
-    links.push(LinkPreset.Guestbook);
-  }
-
-  links.push({
-    name: "关于",
-    url: "/content/",
-    icon: "material-symbols:info",
-    children: [
-      ...(siteConfig.pages.sponsor ? [LinkPreset.Sponsor] : []), // 根据配置决定是否添加赞助页面
-      LinkPreset.About,
-      ...(siteConfig.pages.bangumi ? [LinkPreset.Bangumi] : []), // 根据配置决定是否添加番组计划页面
-    ],
-  });
-  // 仅返回链接，其它导航搜索相关配置在模块顶层常量中独立导出
+  
   return { links } as NavBarConfig;
 };
 
