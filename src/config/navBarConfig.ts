@@ -8,11 +8,38 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
     LinkPreset.Home,
     // 归档
     LinkPreset.Archive,
-    // 我的
+    // 我的（下拉菜单）
     {
       name: "我的",
       url: "/about/",
       icon: "fa6-solid:user",
+      children: [
+        {
+          name: "项目",
+          url: "/projects/",
+          icon: "fa6-solid:folder-open",
+        },
+        {
+          name: "技能",
+          url: "/skills/",
+          icon: "fa6-solid:code",
+        },
+        {
+          name: "时间线",
+          url: "/timeline/",
+          icon: "fa6-solid:timeline",
+        },
+        {
+          name: "追番",
+          url: "/bangumi/",
+          icon: "fa6-solid:tv",
+        },
+        {
+          name: "图库",
+          url: "/gallery/",
+          icon: "fa6-solid:images",
+        },
+      ],
     },
     // 链接
     {
@@ -42,39 +69,8 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
     },
     // 留言
     LinkPreset.Guestbook,
-    // 关于（下拉菜单）
-    {
-      name: "关于",
-      url: "/about/",
-      icon: "material-symbols:info",
-      children: [
-        {
-          name: "项目",
-          url: "/projects/",
-          icon: "fa6-solid:folder-open",
-        },
-        {
-          name: "时间线",
-          url: "/timeline/",
-          icon: "fa6-solid:timeline",
-        },
-        {
-          name: "技能",
-          url: "/skills/",
-          icon: "fa6-solid:code",
-        },
-        {
-          name: "番剧",
-          url: "/bangumi/",
-          icon: "fa6-solid:tv",
-        },
-        {
-          name: "图片",
-          url: "/gallery/",
-          icon: "fa6-solid:images",
-        },
-      ],
-    },
+    // 关于
+    LinkPreset.About,
   ];
   
   return { links } as NavBarConfig;

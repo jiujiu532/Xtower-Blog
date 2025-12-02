@@ -1,0 +1,55 @@
+---
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<MainGridLayout title="项目展示" description="我的开发项目作品集">
+  <div class="card-base p-6">
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-2">
+      <span class="w-1 h-6 bg-[var(--primary)] rounded-full"></span>
+      项目展示
+    </h1>
+    <p class="text-neutral-500 mb-6">我的开发项目作品集</p>
+
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
+        <div class="text-2xl font-bold text-green-600">0</div>
+        <div class="text-sm text-neutral-500">项目总数</div>
+      </div>
+      <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+        <div class="text-2xl font-bold text-blue-600">0</div>
+        <div class="text-sm text-neutral-500">已完成</div>
+      </div>
+      <div class="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
+        <div class="text-2xl font-bold text-yellow-600">0</div>
+        <div class="text-sm text-neutral-500">进行中</div>
+      </div>
+      <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
+        <div class="text-2xl font-bold text-purple-600">0</div>
+        <div class="text-sm text-neutral-500">技术栈数</div>
+      </div>
+    </div>
+
+    <!-- 精选项目 -->
+    <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+      <span class="w-2 h-2 bg-[var(--primary)] rounded-full"></span>
+      精选项目
+    </h2>
+    
+    <div class="text-center py-12 text-neutral-400">
+      <Icon name="fa6-solid:folder-open" class="text-4xl mb-4" />
+      <p>暂无项目，敬请期待...</p>
+    </div>
+
+    <!-- 技术栈统计 -->
+    <h2 class="text-xl font-bold mb-4 mt-8 flex items-center gap-2">
+      <span class="w-2 h-2 bg-[var(--primary)] rounded-full"></span>
+      技术栈统计
+    </h2>
+    
+    <div class="flex flex-wrap gap-2">
+      <span class="px-3 py-1 bg-neutral-100 dark:bg-neutral-800 rounded-full text-sm">暂无数据</span>
+    </div>
+  </div>
+</MainGridLayout>

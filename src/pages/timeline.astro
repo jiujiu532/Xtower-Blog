@@ -1,0 +1,86 @@
+---
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<MainGridLayout title="时间线" description="我的成长历程和重要里程碑">
+  <div class="card-base p-6">
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-2">
+      <span class="w-1 h-6 bg-[var(--primary)] rounded-full"></span>
+      时间线
+    </h1>
+    <p class="text-neutral-500 mb-6">我的成长历程和重要里程碑</p>
+
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
+        <div class="text-2xl font-bold text-green-600">0</div>
+        <div class="text-sm text-neutral-500">总计</div>
+      </div>
+      <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+        <div class="text-2xl font-bold text-blue-600">0</div>
+        <div class="text-sm text-neutral-500">工作经历</div>
+      </div>
+      <div class="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
+        <div class="text-2xl font-bold text-yellow-600">0</div>
+        <div class="text-sm text-neutral-500">项目数</div>
+      </div>
+      <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
+        <div class="text-2xl font-bold text-purple-600">0+</div>
+        <div class="text-sm text-neutral-500">工作经验</div>
+      </div>
+    </div>
+
+    <!-- 当前状态 -->
+    <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+      <span class="w-2 h-2 bg-[var(--primary)] rounded-full"></span>
+      当前状态
+    </h2>
+    
+    <div class="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 mb-8">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+          <Icon name="fa6-solid:graduation-cap" class="text-green-600 text-xl" />
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-bold">学习中</span>
+            <span class="text-xs px-2 py-1 bg-green-100 text-green-600 rounded">当前状态</span>
+          </div>
+          <p class="text-sm text-neutral-500 mb-2">正在学习编程和技术知识...</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs px-2 py-1 bg-neutral-200 dark:bg-neutral-700 rounded">学习</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 历史记录 -->
+    <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+      <span class="w-2 h-2 bg-[var(--primary)] rounded-full"></span>
+      历史记录
+    </h2>
+
+    <div class="relative">
+      <!-- 时间线 -->
+      <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-neutral-200 dark:bg-neutral-700"></div>
+      
+      <!-- 时间线项目 -->
+      <div class="space-y-6">
+        <div class="relative flex gap-4">
+          <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center z-10">
+            <Icon name="fa6-solid:star" class="text-blue-600" />
+          </div>
+          <div class="flex-1 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4">
+            <div class="text-sm text-neutral-500 mb-1">2025年12月</div>
+            <h3 class="font-bold mb-2">开始搭建个人博客</h3>
+            <p class="text-sm text-neutral-500">使用 Astro 和 Firefly 主题搭建了这个博客网站。</p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="text-xs px-2 py-1 bg-blue-100 text-blue-600 rounded">里程碑</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainGridLayout>

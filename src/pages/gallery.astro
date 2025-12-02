@@ -1,0 +1,77 @@
+---
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<MainGridLayout title="相册" description="记录生活中的美好瞬间">
+  <div class="card-base p-6">
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-2">
+      <span class="w-1 h-6 bg-[var(--primary)] rounded-full"></span>
+      相册
+    </h1>
+    <p class="text-neutral-500 mb-6">记录生活中的美好瞬间</p>
+
+    <!-- 相册列表 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 示例相册卡片 -->
+      <div class="group cursor-pointer">
+        <div class="aspect-video bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden mb-3 relative">
+          <div class="absolute inset-0 flex items-center justify-center text-neutral-400">
+            <Icon name="fa6-solid:images" class="text-4xl" />
+          </div>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <Icon name="fa6-solid:eye" class="text-white text-2xl" />
+          </div>
+        </div>
+        <h3 class="font-bold mb-1">壁纸收藏</h3>
+        <p class="text-sm text-neutral-500 mb-2 line-clamp-2">收集的精美壁纸图片...</p>
+        <div class="flex items-center gap-4 text-sm text-neutral-400">
+          <span class="flex items-center gap-1">
+            <Icon name="fa6-solid:image" />
+            0 张
+          </span>
+          <span class="flex items-center gap-1">
+            <Icon name="fa6-solid:calendar" />
+            2025/12/2
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-800 rounded">壁纸</span>
+        </div>
+      </div>
+
+      <!-- 示例相册卡片 2 -->
+      <div class="group cursor-pointer">
+        <div class="aspect-video bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden mb-3 relative">
+          <div class="absolute inset-0 flex items-center justify-center text-neutral-400">
+            <Icon name="fa6-solid:images" class="text-4xl" />
+          </div>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <Icon name="fa6-solid:eye" class="text-white text-2xl" />
+          </div>
+        </div>
+        <h3 class="font-bold mb-1">头像收藏</h3>
+        <p class="text-sm text-neutral-500 mb-2 line-clamp-2">一些头像图片...</p>
+        <div class="flex items-center gap-4 text-sm text-neutral-400">
+          <span class="flex items-center gap-1">
+            <Icon name="fa6-solid:image" />
+            0 张
+          </span>
+          <span class="flex items-center gap-1">
+            <Icon name="fa6-solid:calendar" />
+            2025/12/2
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span class="text-xs px-2 py-1 bg-neutral-100 dark:bg-neutral-800 rounded">头像</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 空状态提示 -->
+    <div class="text-center py-12 text-neutral-400 hidden">
+      <Icon name="fa6-solid:images" class="text-4xl mb-4" />
+      <p>暂无相册，敬请期待...</p>
+    </div>
+  </div>
+</MainGridLayout>
