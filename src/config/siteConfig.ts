@@ -95,12 +95,12 @@ export const siteConfig: SiteConfig = {
           mobile: true,
         },
         text: {
-          desktop: "长夜月门",
-          mobile: "长夜月门",
+          desktop: "JIUlist",
+          mobile: "JIUlist",
         },
         url: {
-          desktop: "https://x.com/ment502/status/1970738334784987565",
-          mobile: "https://www.pixiv.net/artworks/135820216",
+          desktop: "https://jiuuij.zeabur.app/",
+          mobile: "https://jiuuij.zeabur.app/",
         },
       },
       navbar: {
