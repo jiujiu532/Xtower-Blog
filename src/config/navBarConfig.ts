@@ -21,8 +21,14 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
         icon: "fa6-brands:github",
       },
       {
+        name: "GitHub",
+        url: "https://github.com/jiujiu532",
+        external: true,
+        icon: "fa6-brands:github",
+      },
+      {
         name: "Bilibili",
-        url: "https://space.bilibili.com/398343999",
+        url: "https://space.bilibili.com/1131220360?spm_id_from=333.1387.0.0",
         external: true,
         icon: "fa6-brands:bilibili",
       },
