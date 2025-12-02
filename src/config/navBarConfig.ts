@@ -4,15 +4,15 @@ import {siteConfig} from "./siteConfig";
 // 根据页面开关动态生成导航栏配置
 const getDynamicNavBarConfig = (): NavBarConfig => {
   const links: (NavBarLink | LinkPreset)[] = [
-    // 主页
+    // 1. 主页
     LinkPreset.Home,
-    // 归档
+    // 2. 归档
     LinkPreset.Archive,
-    // 我的（下拉菜单）
+    // 3. 随便搞搞（下拉菜单：项目、技能、时间线）
     {
-      name: "我的",
-      url: "/about/",
-      icon: "fa6-solid:user",
+      name: "随便搞搞",
+      url: "/projects/",
+      icon: "fa6-solid:gamepad",
       children: [
         {
           name: "项目",
@@ -29,6 +29,16 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
           url: "/timeline/",
           icon: "fa6-solid:timeline",
         },
+      ],
+    },
+    // 4. 留言
+    LinkPreset.Guestbook,
+    // 5. 我的（下拉菜单：追番、图库、关于我）
+    {
+      name: "我的",
+      url: "/about/",
+      icon: "fa6-solid:user",
+      children: [
         {
           name: "追番",
           url: "/bangumi/",
@@ -39,38 +49,32 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
           url: "/gallery/",
           icon: "fa6-solid:images",
         },
+        {
+          name: "关于我",
+          url: "/about/",
+          icon: "fa6-solid:circle-info",
+        },
       ],
     },
-    // 链接
+    // 6. 链接（下拉菜单：源项目链接、友链）
     {
       name: "链接",
-      url: "/links/",
+      url: "/friends/",
       icon: "material-symbols:link",
       children: [
         {
-          name: "源项目 GitHub",
+          name: "源项目",
           url: "https://github.com/CuteLeaf/Firefly",
           external: true,
           icon: "fa6-brands:github",
         },
         {
-          name: "GitHub",
-          url: "https://github.com/jiujiu532",
-          external: true,
-          icon: "fa6-brands:github",
-        },
-        {
-          name: "Bilibili",
-          url: "https://space.bilibili.com/1131220360?spm_id_from=333.1387.0.0",
-          external: true,
-          icon: "fa6-brands:bilibili",
+          name: "友链",
+          url: "/friends/",
+          icon: "fa6-solid:user-group",
         },
       ],
     },
-    // 留言
-    LinkPreset.Guestbook,
-    // 关于
-    LinkPreset.About,
   ];
   
   return { links } as NavBarConfig;
