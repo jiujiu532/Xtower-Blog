@@ -1,9 +1,9 @@
 import type { ProfileConfig } from "../types/config";
 
 export const profileConfig: ProfileConfig = {
-  avatar: "/assets/images/avatar.webp",
-  name: "Xtower",
-  bio: "Hello, I'm Xtower.",
+  avatar: "/assets/images/avatar.jpg",
+  name: "久菜不闲",
+  bio: "你好，我是久菜不闲。",
   links: [
     {
       name: "Bilibli",
